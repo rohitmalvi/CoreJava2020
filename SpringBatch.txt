@@ -1,0 +1,230 @@
+Batch processing
+usecases->Banking, Education, HealthCare,
+How batch processing working
+how batch programming is works
+source and target->reading data file to database and database to file 
+                   writing data file to database and database to file
+
+Advantages/feature
+developers can concentrate on implementaion.
+deuoupling between different layers is easy.
+provides seperation between infrastructure and application..
+Over 17 itemReader and 15 itemWriter implementition covering vast options for input and output..
+The ability to stop/start/restart jobs and maintain state between excutions.
+The ability to skip and retry records as they are being processed.
+java or xml based configuration.
+All the sring features like DI, AOP, Testability, etc....
+
+Architectuure of Spring Batch
+JOB-> job is a like i want to read file or write file anyting you have to tell so we have to configure someting.
+STEPS-> reader->processor->writer
+JOBLAUNCHER->after creating a job it is start that job
+JOBREPOSITORY->in spring batch everyting as a Object, so everyobject associated with that jobRepository
+Deom1. Reading the file, processing it and storing into database
+in main class we have to enable batch processing by using @EnableBatchProcessing
+we have a job we are telling to builder to create that job it is creating job object for you.demo1 is the name of job
+we have a steop which is associated with the job object .and start we are passing a step name
+Step is a combination reader processor writer for createing a job we have jobBuilder factory for creating a 
+step we needed stepbuilder factory class in this process we are using flateFileInputReader.
+we have a reader which is reading a data throw employee.csv file.
+in FlateFileItemReader we are reading data as string formate and converting into a DTO.
+then that EmployeeDTO object we will get
+how mapping happening String to EmployeeDTO we have to tell this is the mapper inside setFieldSetMapper(new EmployeeFileRowMapper());
+we have a mapper which is reading data and map into the object
+@StepScope> provided by spring batch framework it means that all object you are created that object scope is in that step only.
+job will having a multiple steps.
+we are setting a line mapper-> we are defining what type of mapping we are going to use, colom type , colum name
+setLineTokenizer is having some delemeter like(, or ||).in , it is optioonal else we have to define.
+in employee we have a five column by using that coloum mapping is deine
+we have fieldSet in row mapper which is hold all the value which is comming input file in the form of fieldSet Object.
+processor
+after reading the data you have to do someting into a data reading the dto and tronaforming the another dto
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+spring.datasource.url= jdbc:mysql://localhost:3306/springbatchdemo
+spring.datasource.username=root
+spring.datasource.password=root
+
+spring.jpa.hibernate.ddl-auto=create
+
+# Disable batch auto-start
+spring.batch.job.enabled=false
+#Database
+spring.batch.initialize-schema=always
+spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
