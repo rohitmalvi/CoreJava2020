@@ -858,3 +858,28 @@ but we can duplicate values.
 
 home work
 Casting, instanceOf operator(102), Auto Boxiing and Auto Unboxing, valueOf, xxxValue
+
+InstanceOf :->
+The instanceof operator in Java is used to check whether an object is an instance of a particular class or not.
+
+valueOf :->The java string valueOf() method converts different types of values into string. By the help of string valueOf() 
+           method, you can convert int to string, long to string, boolean to string, character to string, float to string,
+           double to string, object to string and char array to string.
+
+ArrayStoreException :->you can store only string elements in an array of strings. if you try to insert integer element in an array of strings, 
+                       you will get ArrayStoreException at run time.
+
+Http status code
+200	Success	        The request has succeeded
+201	Created	        The request has been fulfilled and resulted in a new resource being created
+204	No Content	The request has fulfilled the request but does not need to return an entity body
+206	Partial Content	The server has fulfilled the partial GET request for the resource
+400	Bad request	The request could not be understood by the server due to malformed syntax
+404	Not Found	The server has not found anything matching the request URI
+405	Method Not allowed	The method specified in the request is not allowed for the resource identified by the request URI
+409	Conflict	The request could not be completed due to a conflict with the current state of resource
+
+Stream:->
+There are two basic types of stream defined by Java, called byte stream and character stream. 
+The byte stream classes provide a convenient means for handling input and output of bytes and 
+character streams provide a convenient means for handling input and output of characters, respectively.
