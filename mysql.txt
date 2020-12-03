@@ -1,0 +1,224 @@
+CREATE DATABASE testDB;
+
+use  ojas;
+
+show databases;
+
+create table tutorials_tbl(
+   tutorial_id INT NOT NULL AUTO_INCREMENT,
+   tutorial_title VARCHAR(100) NOT NULL,
+   tutorial_author VARCHAR(40) NOT NULL,
+   submission_date DATE,
+   PRIMARY KEY ( tutorial_id )
+);
+
+INSERT INTO tutorials_tbl
+   (tutorial_title, tutorial_author, submission_date)
+   VALUES
+   ("Learn MySQL", "Abdul S", NOW());
+
+ SELECT * from tutorials_tbl 
+    WHERE tutorial_author LIKE 'rohit';
+
+ SELECT * from tutorials_tbl ORDER BY tutorial_author ASC;
+
+ SELECT * from tutorials_tbl ORDER BY tutorial_author desc;
+
+   commit;
+
+mySql Port Number:3306
+
+*Field Attribute NOT NULL is being used because we do not want this field to be NULL. 
+So, if a user will try to create a record with a NULL value, then MySQL will raise an error.
+
+*Field Attribute AUTO_INCREMENT tells MySQL to go ahead and add the next available number to the id field.
+
+*Keyword PRIMARY KEY is used to define a column as a primary key. You can use multiple columns separated by a comma to define a primary key.
+The PRIMARY KEY constraint uniquely identifies each record in a table.
+Primary keys must contain UNIQUE values, and cannot contain NULL values.
+A table can have only ONE primary key; and in the table, this primary key can consist of single or multiple columns (fields).
+
+
+JOIN ->
+(INNER) JOIN: Returns records that have matching values in both tables
+LEFT (OUTER) JOIN: Returns all records from the left table, and the matched records from the right table
+RIGHT (OUTER) JOIN: Returns all records from the right table, and the matched records from the left table
+FULL (OUTER) JOIN: Returns all records when there is a match in either left or right table
+
+JOIN:
+SELECT a.tutorial_id, a.tutorial_author, b.tutorial_count
+    FROM tutorials_tbl a, tcount_tbl b
+    WHERE a.tutorial_author = b.tutorial_author;
+
+LEFT JOIN:
+SELECT a.tutorial_id, a.tutorial_author, b.tutorial_count
+    FROM tutorials_tbl a LEFT JOIN tcount_tbl b
+    ON a.tutorial_author = b.tutorial_author;
+
+We have seen the SQL SELECT command along with the WHERE clause to fetch data from a MySQL table, but when we try to give a condition, 
+which compares the field or the column value to NULL, it does not work properly.
+
+To handle such a situation, MySQL provides three operators −
+
+IS NULL − This operator returns true, if the column value is NULL.
+
+IS NOT NULL − This operator returns true, if the column value is not NULL.
+
+<=> − This operator compares values, which (unlike the = operator) is true even for two NULL values.
+
+->
+  SELECT * FROM tcount_tbl WHERE tutorial_count = NULL;
+you will get nothing by using this
+->
+  SELECT * FROM tcount_tbl 
+   WHERE tutorial_count IS NULL;
+you will get record where null value is there.
+
+Regexps  ->
+Consider we have a table called person_tbl and it is having a field called name −
+Query to find all the names starting with 'st' −
+Query to find all the names starting with 'st' −
+
+mysql> SELECT name FROM person_tbl WHERE name REGEXP '^st';
+Query to find all the names ending with 'ok' −
+
+mysql> SELECT name FROM person_tbl WHERE name REGEXP 'ok$';
+Query to find all the names, which contain 'mar' −
+
+mysql> SELECT name FROM person_tbl WHERE name REGEXP 'mar';
+Query to find all the names starting with a vowel and ending with 'ok' −
+
+mysql> SELECT FirstName FROM intque.person_tbl WHERE FirstName REGEXP '^[aeiou].*ok$';
+
+MySQL-transaction:
+A transaction in MySQL is a sequential group of statements, queries, or operations such as select, insert, update or delete 
+to perform as a one single work unit that can be committed or rolled back.
+Properties of Transaction
+The transaction contains mainly four properties, which referred to as ACID property. Now, we are going to discuss the ACID property in detail. 
+The ACID property stands for:
+Atomicity
+Consistency
+Isolation
+Durability
+
+Atomicity-> This property ensures that all statements or operations within the transaction unit must be executed successfully. 
+Otherwise, if any operation is failed, the whole transaction will be aborted, and it goes rolled back into their previous state.
+It includes features:
+COMMIT statement.
+ROLLBACK statement.
+Auto-commit setting.
+Operational data from the INFORMATION_SCHEMA tables.
+
+Consistency: This property ensures that the database changes state only when a transaction will be committed successfully. 
+It is also responsible for protecting data from crashes. It includes features:
+InnoDB doublewrite buffer.
+InnoDB crash recovery.
+
+Isolation: This property guarantees that each operation in the transaction unit operated independently.
+ It also ensures that statements are transparent to each other. It includes features:
+SET ISOLATION LEVEL statement.
+Auto-commit setting.
+The low-level details of InnoDB locking.
+
+Durability: This property guarantees that the result of committed transactions persists permanently even if the system crashes or failed.
+It includes features:
+Write buffer in a storage device.
+Battery-backed cache in a storage device.
+Configuration option innodb_file_per_table.
+Configuration option innodb_flush_log_at_trx_commit.
+Configuration option sync_binlog.
+
+SET autocommit = 0; (0 or off)
+SET autocommit = 1; (1 or on)
+
+ALTER-> If you want to drop an existing column i from the above MySQL table, then you will use the DROP clause along with 
+the ALTER command as shown below −
+The ALTER TABLE statement is used to add, delete, or modify columns in an existing table.
+The ALTER TABLE statement is also used to add and drop various constraints on an existing table.
+
+create table testalter_tbl
+    (
+    i INT,
+    c CHAR(1)
+    );
+
+ALTER TABLE testalter_tbl  DROP i;
+
+ALTER TABLE testalter_tbl ADD i INT;
+
+The temporary tables could be very useful in some cases to keep temporary data. 
+The most important thing that should be known for temporary tables is that they will be deleted when the current client session terminates.
+ CREATE TEMPORARY TABLE SalesSummary (
+    product_name VARCHAR(50) NOT NULL
+    , total_sales DECIMAL(12,2) NOT NULL DEFAULT 0.00
+    , avg_unit_price DECIMAL(7,2) NOT NULL DEFAULT 0.00
+    , total_units_sold INT UNSIGNED NOT NULL DEFAULT 0
+);
+INSERT INTO SalesSummary
+    (product_name, total_sales, avg_unit_price, total_units_sold)
+    VALUES
+    ('cucumber', 100.25, 90, 2);
+select * from SalesSummary;
+
+Sequences->
+Using AUTO_INCREMENT Column
+The simplest way in MySQL to use Sequences is to define a column as AUTO_INCREMENT and leave the remaining things to MySQL to take care.
+
+CREATE TABLE insect
+    (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (id),
+    name VARCHAR(30) NOT NULL, # type of insect
+    date DATE NOT NULL, # date collected
+    origin VARCHAR(30) NOT NULL # where collected
+);
+
+Duplication->
+You can use a PRIMARY KEY or a UNIQUE Index on a table with the appropriate fields to stop duplicate records.
+CREATE TABLE person_tbl (
+   first_name CHAR(20) NOT NULL,
+   last_name CHAR(20) NOT NULL,
+   sex CHAR(10),
+   PRIMARY KEY (last_name, first_name)
+);
+
+inteview questions and answer
+https://www.softwaretestinghelp.com/50-popular-sql-interview-questions-for-testers/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
